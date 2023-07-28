@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script displays sorted data.
+
+awk '{ print $1 " " $7 " " $9 }' apache-access.log | sort | uniq -c | awk '{ print $1 " " $3 " " $2 }' | sort -nr
