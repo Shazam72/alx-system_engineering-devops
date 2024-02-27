@@ -1,0 +1,4 @@
+Host ubuntu-server
+	Hostname 100.25.133.10
+	IdentityFile ~/.ssh/school
+	User ubuntu
