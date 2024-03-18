@@ -1,6 +1,6 @@
 #!/bin/bash
 # install and add rules to ufw
-apt-get update && aptt-get install -y ufw
+apt-get update && apt-get install -y ufw
 echo y | sudo ufw reset
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
