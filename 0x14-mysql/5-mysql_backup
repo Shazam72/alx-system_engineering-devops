@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# create a sql backup file and a gzipped version of the dump
+mysqldump -uroot -p"$1" -A > backup.sql
+tar -zcvf "$(date +%d-%m-%Y)".tar.gz backup.sql
+
