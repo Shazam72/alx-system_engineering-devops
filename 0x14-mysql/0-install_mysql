@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # install mysql on server
-sudo apt-get update && sudo apt-get install -y mysql mariadb
+sudo apt-get update && sudo apt-get install -y mysql-server
+sudo service mysql restart
