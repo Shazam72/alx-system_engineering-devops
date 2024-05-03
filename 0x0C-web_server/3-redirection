@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install Nginx, and redirect to Nyan Cat
+# Install Nginx, and redirect to jf-zouba.tech
 
 sudo apt update -y
 sudo apt upgrade -y
