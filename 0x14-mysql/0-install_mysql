@@ -8,18 +8,20 @@ sudo dpkg --purge mysql-apt-config
 sudo rm -rf /etc/apt/sources.list.d/mysql.list*
 sudo rm -rf /var/lib/mysql-apt-config
 sudo rm -rf /etc/mysql /var/lab/mysql
+echo "Cleaning complete"
 
 echo "------------------"
 echo "# Updating repos #"
 echo "------------------"
 sudo apt-get update
+echo "Repositories updated!"
 
 echo "------------------------------------"
 echo "# Beginning mysql 5.7 installation #"
 echo "------------------------------------"
 curl https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb -Lo /tmp/mysql-apt-config_0.8.12-1_all.deb
 sudo dpkg -i /tmp/mysql-apt-config_0.8.12-1_all.deb
-sudo apt-get update && sudo apt-get install mysql-client=5.7* mysql-server=5.7* mysql-community-client=5.7*
+sudo apt-get update && sudo apt-get install -y mysql-client=5.7* mysql-server=5.7* mysql-community-client=5.7*
 sudo mysql_secure_installation
 rm -rf /tmp/mysql-apt-config_0.8.12-1_all.deb
 mysql --version
