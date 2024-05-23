@@ -1,18 +1,42 @@
+
 #!/usr/bin/python3
-"""Exports to-do list information for a given employee ID to CSV format."""
-import csv
-import requests
-import sys
+
+"""
+Python script that exports data in the JSON format.
+"""
+
+from requests import get
+from sys import argv
+import json
 
 if __name__ == "__main__":
-    user_id = sys.argv[1]
-    url = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(url + "users/{}".format(user_id)).json()
-    username = user.get("username")
-    todos = requests.get(url + "todos", params={"userId": user_id}).json()
+    response = get('https://jsonplaceholder.typicode.com/todos/')
+    data = response.json()
 
-    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
-        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-        [writer.writerow(
-            [user_id, username, t.get("completed"), t.get("title")]
-         ) for t in todos]
+    row = []
+    response2 = get('https://jsonplaceholder.typicode.com/users')
+    data2 = response2.json()
+
+    for i in data2:
+        if i['id'] == int(argv[1]):
+            u_name = i['username']
+            id_no = i['id']
+
+    row = []
+
+    for i in data:
+
+        new_dict = {}
+
+        if i['userId'] == int(argv[1]):
+            new_dict['username'] = u_name
+            new_dict['task'] = i['title']
+            new_dict['completed'] = i['completed']
+            row.append(new_dict)
+
+    final_dict = {}
+    final_dict[id_no] = row
+    json_obj = json.dumps(final_dict)
+
+    with open(argv[1] + ".json",  "w") as f:
+        f.write(json_obj)
