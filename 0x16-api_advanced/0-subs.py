@@ -1,31 +1,16 @@
 #!/usr/bin/python3
-"""script for parsing web data from an api
-"""
-import json
+"""Function to query subscribers on a given Reddit subreddit."""
 import requests
-import sys
 
 
 def number_of_subscribers(subreddit):
-    """api call to reddit to get the number of subscribers
-    """
-    base_url = 'https://www.reddit.com/r/'
+    """Return the total number of subscribers on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {
-        'User-Agent':
-        'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) \
-        Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1)'
-    }
-    # grab info about all users
-    url = base_url + '{}/about.json'.format(subreddit)
-    response = requests.get(url, headers=headers)
-    resp = json.loads(response.text)
-
-    try:
-        # grab the info about the users' tasks
-        data = resp.get('data')
-        subscribers = data.get('subscribers')
-    except:
+            "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+            }
+    response = requests.get(url, headers=headers, allow_redirects=False)
+    if response.status_code == 404:
         return 0
-    if subscribers is None:
-        return 0
-    return int(subscribers)
+    results = response.json().get("data")
+    return results.get("subscribers")
